@@ -1,18 +1,18 @@
 package cli
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 )
 
 const (
 	hello     = "Hi! Enter nums for calc metrics (write !end for break)..."
-	error     = "Slice is empty."
 	modeInfo  = "Choice the mode:\nMean\t(1)\nMedian\t(2)\nMode\t(3)\nSD\t(4)\nAll\t(5)\n"
 	errorMenu = "Bad choice. Try again..."
 )
 
-func ScanData() []int {
+func ScanData() ([]int, error) {
 	fmt.Println(hello)
 
 	var inputData string
@@ -32,10 +32,9 @@ func ScanData() []int {
 	}
 
 	if len(dataSlice) == 0 {
-		fmt.Println(error)
-		return nil
+		return nil, errors.New("slice is empty")
 	}
-	return dataSlice
+	return dataSlice, nil
 }
 
 func Menu() string {

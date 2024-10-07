@@ -20,38 +20,45 @@ type Metrics struct {
 
 func (m Metrics) Calculate(slice []int) (Metrics, error) {
 	result := Metrics{}
-	result.MEAN, _ = meanCalc(slice)
-	result.MEDIAN, _ = medianCalc(slice)
-	result.MODE, _ = modeCalc(slice)
-	result.SD, _ = sdCalc(slice)
+	result.MEAN, _ = MeanCalc(slice)
+	result.MEDIAN, _ = MedianCalc(slice)
+	result.MODE, _ = ModeCalc(slice)
+	result.SD, _ = SDCalc(slice)
 	return result, nil
 }
 
 func MakeCalc(m IMetrics, slice []int) (Metrics, error) {
+	if slice == nil {
+		return Metrics{}, errors.New("slice is nil")
+	}
+
 	sort.Ints(slice)
-	result, _ := m.Calculate(slice)
+	result, err := m.Calculate(slice)
+	if err != nil {
+		return Metrics{}, err
+	}
 	return result, nil
 }
 
 func GetInfo(m Metrics, choice string) {
 	switch choice {
 	case "1":
-		fmt.Println("Mean:\t", m.MEAN)
+		fmt.Printf("Mean:\t %0.1f", m.MEAN)
 	case "2":
-		fmt.Println("Median:\t", m.MEDIAN)
+		fmt.Printf("Median:\t %0.1f", m.MEDIAN)
 	case "3":
 		fmt.Println("Mode:\t", m.MODE)
 	case "4":
 		fmt.Printf("SD:\t %0.2f\n", m.SD)
 	case "5":
-		fmt.Println("Mean:\t", m.MEAN)
-		fmt.Println("Median:\t", m.MEDIAN)
+		fmt.Printf("Mean:\t %0.1f", m.MEAN)
+		fmt.Printf("Median:\t %0.1f", m.MEDIAN)
 		fmt.Println("Mode:\t", m.MODE)
 		fmt.Printf("SD:\t %0.2f\n", m.SD)
 	}
 }
 
-func meanCalc(slice []int) (float32, error) {
+func MeanCalc(slice []int) (float32, error) {
 	err := checkEmpty(slice)
 	if err != nil {
 		return 0.0, err
@@ -64,7 +71,7 @@ func meanCalc(slice []int) (float32, error) {
 	return mean / float32(len(slice)), nil
 }
 
-func medianCalc(slice []int) (float32, error) {
+func MedianCalc(slice []int) (float32, error) {
 	err := checkEmpty(slice)
 	if err != nil {
 		return 0.0, err
@@ -78,13 +85,13 @@ func medianCalc(slice []int) (float32, error) {
 		median = float32(slice[index])
 	} else {
 		index = lSlice / 2
-		median = (float32(slice[index]) + float32(slice[index+1])) / 2
+		median = (float32(slice[index]) + float32(slice[index-1])) / 2
 	}
 
 	return median, nil
 }
 
-func sdCalc(slice []int) (float32, error) {
+func SDCalc(slice []int) (float32, error) {
 	err := checkEmpty(slice)
 	if err != nil {
 		return 0.0, err
@@ -108,7 +115,7 @@ func sdCalc(slice []int) (float32, error) {
 	return float32(standardDeviation), nil
 }
 
-func modeCalc(slice []int) (int, error) {
+func ModeCalc(slice []int) (int, error) {
 	err := checkEmpty(slice)
 	if err != nil {
 		return 0, err
