@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strconv"
+
+	"github.com/Saracomethstein/go_day_00/internal/anscombe"
 )
 
 func main() {
@@ -22,5 +24,6 @@ func main() {
 		dataSlice = append(dataSlice, num)
 	}
 
-	fmt.Println(dataSlice)
+	result, _ := anscombe.MakeCalc(anscombe.Metrics{}, dataSlice)
+	anscombe.GetInfo(result)
 }
