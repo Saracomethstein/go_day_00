@@ -6,7 +6,17 @@ import (
 )
 
 func main() {
+	var choice string
 	dataSlice := cli.ScanData()
+
+	for {
+		choice = cli.Menu()
+		if choice == "!m" {
+			continue
+		}
+		break
+	}
+
 	result, _ := anscombe.MakeCalc(anscombe.Metrics{}, dataSlice)
-	anscombe.GetInfo(result)
+	anscombe.GetInfo(result, choice)
 }

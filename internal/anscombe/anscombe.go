@@ -33,11 +33,22 @@ func MakeCalc(m IMetrics, slice []int) (Metrics, error) {
 	return result, nil
 }
 
-func GetInfo(m Metrics) {
-	fmt.Println("Mean:\t", m.MEAN)
-	fmt.Println("Median:\t", m.MEDIAN)
-	fmt.Println("Mode:\t", m.MODE)
-	fmt.Printf("SD:\t %0.2f\n", m.SD)
+func GetInfo(m Metrics, choice string) {
+	switch choice {
+	case "1":
+		fmt.Println("Mean:\t", m.MEAN)
+	case "2":
+		fmt.Println("Median:\t", m.MEDIAN)
+	case "3":
+		fmt.Println("Mode:\t", m.MODE)
+	case "4":
+		fmt.Printf("SD:\t %0.2f\n", m.SD)
+	case "5":
+		fmt.Println("Mean:\t", m.MEAN)
+		fmt.Println("Median:\t", m.MEDIAN)
+		fmt.Println("Mode:\t", m.MODE)
+		fmt.Printf("SD:\t %0.2f\n", m.SD)
+	}
 }
 
 func meanCalc(slice []int) (float32, error) {
