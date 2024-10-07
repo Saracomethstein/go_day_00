@@ -117,7 +117,7 @@ func TestMakeCalc(t *testing.T) {
 	for _, test := range tests {
 		calc := anscombe.Metrics{}
 		result, err := anscombe.MakeCalc(calc, test.input)
-		if test.hasError && err == nil {
+		if test.hasError && err != nil {
 			t.Errorf("Expected error but got nil")
 		}
 		if !test.hasError && result != test.expected {
