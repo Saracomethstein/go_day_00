@@ -43,16 +43,16 @@ func MakeCalc(m IMetrics, slice []int) (Metrics, error) {
 func GetInfo(m Metrics, choice string) {
 	switch choice {
 	case "1":
-		fmt.Printf("Mean:\t %0.1f", m.MEAN)
+		fmt.Printf("Mean:\t %0.1f\n", m.MEAN)
 	case "2":
-		fmt.Printf("Median:\t %0.1f", m.MEDIAN)
+		fmt.Printf("Median:\t %0.1f\n", m.MEDIAN)
 	case "3":
 		fmt.Println("Mode:\t", m.MODE)
 	case "4":
 		fmt.Printf("SD:\t %0.2f\n", m.SD)
 	case "5":
-		fmt.Printf("Mean:\t %0.1f", m.MEAN)
-		fmt.Printf("Median:\t %0.1f", m.MEDIAN)
+		fmt.Printf("Mean:\t %0.1f\n", m.MEAN)
+		fmt.Printf("Median:\t %0.1f\n", m.MEDIAN)
 		fmt.Println("Mode:\t", m.MODE)
 		fmt.Printf("SD:\t %0.2f\n", m.SD)
 	}
